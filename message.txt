@@ -1,1 +1,1 @@
-Wiadomosc do zaszyfrownaia
+To jest wiadomość do zaszyfrowania z wykorzystaniem mojej implementacji RSA. Jest to bardzo fajna wiadomość i na pewno nikt jej nie przychwyci

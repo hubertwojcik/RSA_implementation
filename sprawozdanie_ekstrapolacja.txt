@@ -1,0 +1,156 @@
+================================================================================
+                    EKSTRAPOLACJA CZASU FAKTORYZACJI KLUCZY RSA
+================================================================================
+
+WPROWADZENIE
+--------------------------------------------------------------------------------
+
+Na podstawie pomiarów z zakresu 32-128 bitów przeprowadziłem ekstrapolację
+czasu faktoryzacji dla większych kluczy RSA. Użyłem trzech modeli: liniowego,
+potęgowego i wykładniczego, żeby oszacować czas dla kluczy 256, 512, 1024
+i 2048 bitów.
+
+
+================================================================================
+                        WYNIKI EKSTRAPOLACJI
+================================================================================
+
+256 bitów
+--------------------------------------------------------------------------------
+
+   Liniowy:     4.53 s
+   Potęgowy:    7.63 min
+   Wykładniczy: 19.13 dni
+
+
+512 bitów
+--------------------------------------------------------------------------------
+
+   Liniowy:     10.24 s
+   Potęgowy:    13.97 h
+   Wykładniczy: 1.53 × 10⁹ lat (ponad miliard lat)
+
+
+1024 bitów
+--------------------------------------------------------------------------------
+
+   Liniowy:     21.65 s
+   Potęgowy:    63.90 dni
+   Wykładniczy: 1.31 × 10³⁰ lat (astronomicznie duża wartość)
+
+
+2048 bitów
+--------------------------------------------------------------------------------
+
+   Liniowy:     44.47 s
+   Potęgowy:    19.2 lat
+   Wykładniczy: 9.51 × 10⁷¹ lat (wartość przekraczająca wiek Wszechświata)
+
+
+================================================================================
+                        OCENA WIARYGODNOŚCI PROGNOZ
+================================================================================
+
+1. Zakres danych
+--------------------------------------------------------------------------------
+
+Mam dane tylko z zakresu 32-128 bitów, więc ekstrapolacja do 256-2048 bitów
+to duży przeskok (2-16x większe wartości). Im dalej od zakresu pomiarowego,
+tym mniej wiarygodne są prognozy - i to widać w wynikach.
+
+
+2. Charakterystyka modeli
+--------------------------------------------------------------------------------
+
+Liniowy - totalnie nierealistyczny dla faktoryzacji. Zakłada stały przyrost
+czasu na bit, co jest kompletnie nieprawdziwe. Daje zaniżone czasy.
+
+Potęgowy - najbardziej sensowny z trzech. Przypomina sub-wykładnicze
+zachowanie, które faktycznie występuje w faktoryzacji. Najlepiej pasuje do
+moich danych eksperymentalnych.
+
+Wykładniczy - przesadnie dramatyczny. Generuje absurdalne wartości dla
+większych kluczy, bo nie uwzględnia optymalizacji algorytmów.
+
+
+3. Rzeczywista złożoność faktoryzacji
+--------------------------------------------------------------------------------
+
+Faktoryzacja RSA ma złożoność sub-wykładniczą:
+
+    O(exp(c · n^(1/3) · log(n)^(2/3)))
+
+Dla małych kluczy (32-128 bitów) używane są proste metody (trial division,
+Pollard rho, ECM), które mogą wydawać się wykładnicze. Ale dla większych
+kluczy (512+ bitów) używa się zaawansowanych algorytmów jak GNFS (General
+Number Field Sieve), które są znacznie szybsze.
+
+To oznacza, że modele oparte tylko na małych kluczach nie dadzą realnych
+przewidywań dla dużych kluczy.
+
+
+4. Co jest realistyczne dla konkretnych długości
+--------------------------------------------------------------------------------
+
+256 bitów:
+   Prognozy jeszcze jako tako trzymają się kupy. Model potęgowy daje ~8 minut,
+   ale realnie to będzie kilka godzin do kilku dni na nowoczesnym sprzęcie.
+   256-bitowe klucze są niebezpieczne i nie powinny być używane.
+
+512 bitów:
+   Modele już się rozjeżdżają. Model potęgowy sugeruje ~14 godzin, ale to
+   prawdopodobnie zbyt optymistyczne. Realnie to miesiące do lat. Historycznie
+   512-bitowe klucze zostały złamane w 1999 roku (RSA-155) - zajęło to około
+   5 miesięcy.
+
+1024 bitów:
+   Modele zaniżają czas o rzędy wielkości. Model potęgowy daje ~64 dni, ale
+   to kompletnie nierealistyczne. Realnie to dziesiątki do setek lat na
+   obecnym sprzęcie. Ekstrapolacja z 32-128 bitów jest po prostu zbyt daleka.
+   Algorytmy dla dużych kluczy używają zupełnie innych metod. 1024-bitowe
+   klucze są nadal używane, ale odradza się je na rzecz 2048+ bitów.
+
+2048 bitów:
+   Ekstrapolacja całkowicie bez znaczenia. Wszystkie modele są nieadekwatne.
+   Realnie to setki tysięcy do milionów lat na obecnym sprzęcie. 2048-bitowe
+   klucze są obecnym standardem bezpieczeństwa i są uważane za bezpieczne
+   przez najbliższe dziesięciolecia.
+
+
+5. Dlaczego modele nie działają dla dużych kluczy
+--------------------------------------------------------------------------------
+
+Dla małych kluczy działają inne algorytmy niż dla dużych. Skalowanie
+złożoności jest nieliniowe - nie da się tego prosto ekstrapolować. Sprzęt,
+równoległość obliczeń, optymalizacje - wszystko to wpływa na wynik bardziej
+niż samo "fitowanie wykresu". Komputery kwantowe mogłyby to zmienić (algorytm
+Shora), ale na razie to teoria.
+
+
+================================================================================
+                            WNIOSKI
+================================================================================
+
+Ekstrapolacja z 32-128 bitów dobrze pokazuje trend, ale nie daje realnych
+czasów dla 512+ bitów. Modele przestają odpowiadać rzeczywistości, bo dla
+dużych liczb używamy zupełnie innych algorytmów.
+
+Dla kluczy 1024-bitowych i większych prognozy są niewiarygodne. Rzeczywiste
+czasy są znacznie dłuższe niż sugerują modele potęgowe. Wymagane są
+specjalistyczne algorytmy i sprzęt.
+
+Ekstrapolacja pokazuje jedynie TREND, nie rzeczywiste czasy faktoryzacji.
+
+
+================================================================================
+                        REKOMENDACJE PRAKTYCZNE
+================================================================================
+
+256-bit RSA - nie używać (niebezpieczne)
+512-bit RSA - nie używać (przestarzałe)
+1024-bit RSA - minimum, ale lepiej przejść na 2048+
+2048-bit RSA - standard (zalecane minimum)
+4096-bit RSA - dla wrażliwych danych
+
+
+================================================================================
