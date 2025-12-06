@@ -141,7 +141,7 @@ def main():
     if not Path(filename).exists():
         print(f"Błąd: Plik {filename} nie istnieje!")
         print("Najpierw uruchom eksperyment faktoryzacji:")
-        print("  python3 rsa_implementation.py message.txt --skip-rsa")
+        print("  python3 main.py message.txt --skip-rsa")
         sys.exit(1)
     
     # Wczytaj dane

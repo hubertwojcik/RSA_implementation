@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from typing import List, Tuple
 
 import sympy
+from rsa_crypto import RSACrypto
 
 
 # Parametry eksperymentu
@@ -45,7 +46,8 @@ class FactorizationExperiment:
     @staticmethod
     def generate_semiprime_for_bits(bit_length: int) -> Tuple[int, int, int]:
         """
-        Generuje półpierwszą liczbę n = p * q o zadanej długości bitowej.
+        Generuje półpierwszą liczbę n = p * q o zadanej długości bitowej
+        używając implementacji RSA z rsa_crypto.py.
         
         Args:
             bit_length: Docelowa długość modułu n w bitach
@@ -53,27 +55,34 @@ class FactorizationExperiment:
         Returns:
             Krotka (n, p, q) gdzie n = p * q
         """
-        prime_bits = bit_length // 2
-        
-        min_prime = 2 ** (prime_bits - 1)
-        max_prime = 2 ** prime_bits - 1
-        
-        p = sympy.randprime(min_prime, max_prime)
-        q = sympy.randprime(min_prime, max_prime)
-        
-        # Upewnij się, że p i q są różne
-        while p == q:
+                
+        if bit_length < 768:
+            # Dla krótszych kluczy użyj oryginalnej metody
+            prime_bits = bit_length // 2
+            
+            min_prime = 2 ** (prime_bits - 1)
+            max_prime = 2 ** prime_bits - 1
+            
+            p = sympy.randprime(min_prime, max_prime)
             q = sympy.randprime(min_prime, max_prime)
-        
-        n = p * q
-        
-        # Jeśli n jest za krótkie, zwiększ liczby pierwsze
-        if n.bit_length() < bit_length:
-            p = sympy.nextprime(p)
-            q = sympy.nextprime(q)
+            
+            # Upewnij się, że p i q są różne
+            while p == q:
+                q = sympy.randprime(min_prime, max_prime)
+            
             n = p * q
+            
+            # Jeśli n jest za krótkie, zwiększ liczby pierwsze
+            if n.bit_length() < bit_length:
+                p = sympy.nextprime(p)
+                q = sympy.nextprime(q)
+                n = p * q
+            
+            return (n, p, q)
         
-        return (n, p, q)
+        # Dla kluczy >= 768 bitów użyj RSACrypto
+        keypair = RSACrypto.generate_keypair(bit_length)
+        return (keypair.n, keypair.p, keypair.q)
     
     @staticmethod
     def factor_with_sympy(n: int) -> Tuple[List[int], float, int, bool]:

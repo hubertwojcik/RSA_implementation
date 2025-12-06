@@ -18,13 +18,13 @@ pip install -r requirements.txt
 ### Podstawowe użycie (demonstracja RSA + eksperyment faktoryzacji)
 
 ```bash
-python3 rsa_implementation.py message.txt --alphabet ascii --key-length 768
+python3 main.py message.txt --alphabet ascii --key-length 768
 ```
 
 ### Tylko eksperyment faktoryzacji (pomijając demonstrację RSA)
 
 ```bash
-python3 rsa_implementation.py message.txt --skip-rsa
+python3 main.py message.txt --skip-rsa
 ```
 
 ### Parametry
@@ -41,29 +41,29 @@ python3 rsa_implementation.py message.txt --skip-rsa
 #### Test z alfabetem ASCII (domyślny)
 
 ```bash
-python3 rsa_implementation.py message.txt --alphabet ascii --key-length 768
+python3 main.py message.txt --alphabet ascii --key-length 768
 ```
 
 #### Test z alfabetem 26-literowym
 
 ```bash
-python3 rsa_implementation.py message.txt --alphabet 26 --key-length 768
+python3 main.py message.txt --alphabet 26 --key-length 768
 ```
 
 #### Test z alfabetem Base64
 
 ```bash
-python3 rsa_implementation.py message.txt --alphabet 64 --key-length 768
+python3 main.py message.txt --alphabet 64 --key-length 768
 ```
 
 #### Test z różnymi długościami klucza
 
 ```bash
 # Klucz 1024-bitowy
-python3 rsa_implementation.py message.txt --alphabet ascii --key-length 1024
+python3 main.py message.txt --alphabet ascii --key-length 1024
 
 # Klucz 2048-bitowy (może zająć więcej czasu)
-python3 rsa_implementation.py message.txt --alphabet ascii --key-length 2048
+python3 main.py message.txt --alphabet ascii --key-length 2048
 ```
 
 ### Test eksperymentu faktoryzacji
@@ -71,7 +71,7 @@ python3 rsa_implementation.py message.txt --alphabet ascii --key-length 2048
 #### Tylko eksperyment faktoryzacji (bez demonstracji RSA)
 
 ```bash
-python3 rsa_implementation.py message.txt --skip-rsa
+python3 main.py message.txt --skip-rsa
 ```
 
 Ten skrypt:
