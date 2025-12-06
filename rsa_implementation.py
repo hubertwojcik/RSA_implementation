@@ -391,7 +391,7 @@ def decrypt_message_blocks(
 
 # Parametry eksperymentu
 BIT_LENGTHS = [32, 40, 48, 56, 64, 72, 80, 88, 96, 128,]
-SAMPLES_PER_SIZE = 5
+SAMPLES_PER_SIZE = 1
 
 
 @dataclass
@@ -670,8 +670,8 @@ def plot_factorization_results(records: List[FactorRecord], filename: str = "fac
             else:
                 a_exp, b_exp = None, None
             
-            # Ekstrapolacja dla 512 i 1024 bitów
-            extrapolation_bits = [512, 1024]
+            # Ekstrapolacja dla 256 i 512 bitów
+            extrapolation_bits = [256, 512]
             print(f"\n{'='*60}")
             print(f"EKSTRAPOLACJA DLA METODY: {method}")
             print(f"{'='*60}")
@@ -706,7 +706,7 @@ def plot_factorization_results(records: List[FactorRecord], filename: str = "fac
                     if not extrapolation_labeled:
                         plt.plot(ext_bits, linear_func(ext_bits), 's', color='red', 
                                 markersize=10, markerfacecolor='none', markeredgewidth=2, 
-                                label='Ekstrapolacja (512, 1024 bity)')
+                                label='Ekstrapolacja (256, 512 bity)')
                         extrapolation_labeled = True
                     else:
                         plt.plot(ext_bits, linear_func(ext_bits), 's', color='red', 

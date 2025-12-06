@@ -93,7 +93,7 @@ Jeśli chcesz przetestować tylko mniejsze klucze, możesz zmodyfikować w kodzi
 
 ```python
 BIT_LENGTHS = [32, 40, 48, 56, 64]  # Tylko mniejsze klucze
-SAMPLES_PER_SIZE = 3  # Mniej próbek na długość
+SAMPLES_PER_SIZE = 1  # Mniej próbek na długość
 ```
 
 ## Wyjście
