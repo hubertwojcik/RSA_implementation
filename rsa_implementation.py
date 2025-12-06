@@ -728,46 +728,7 @@ def plot_factorization_results(records: List[FactorRecord], filename: str = "fac
     
     print(f"\n✓ Wykres zapisany do pliku: {filename}")
     
-    # Analiza wiarygodności prognoz
-    print(f"\n{'='*60}")
-    print("ANALIZA WIARYGODNOŚCI PROGNOZ")
-    print(f"{'='*60}")
-    print("""
-UWAGI O EKSTRAPOLACJI:
 
-1. ZAKRES DANYCH: Dane eksperymentalne obejmują klucze 32-128 bitów.
-   Ekstrapolacja do 512 i 1024 bitów to znaczne rozszerzenie (4-8x większe wartości).
-
-2. MODELE MATEMATYCZNE:
-   - Liniowy: Zakłada stały przyrost czasu na bit (najmniej realistyczny dla faktoryzacji)
-   - Potęgowy: Zakłada wzrost typu O(n^k) - bardziej realistyczny dla algorytmów faktoryzacji
-   - Wykładniczy: Zakłada wykładniczy wzrost - może być zbyt pesymistyczny
-
-3. RZECZYWISTOŚĆ:
-   - Faktoryzacja RSA jest sub-wykładnicza (około O(exp(c * n^(1/3) * log(n)^(2/3))))
-   - Dla małych kluczy (32-128 bitów) może wydawać się wykładnicza
-   - Dla większych kluczy (512+) algorytmy jak GNFS (General Number Field Sieve) 
-     są znacznie szybsze niż proste metody
-
-4. WIARYGODNOŚĆ:
-   - Prognozy dla 512 bitów: UMIARKOWANIE WIARYGODNE
-     * Rzeczywisty czas faktoryzacji 512-bitowego RSA: kilka miesięcy do lat
-     * (zależnie od sprzętu i algorytmów)
-   
-   - Prognozy dla 1024 bitów: MAŁO WIARYGODNE
-     * Rzeczywisty czas: dziesiątki do setek lat (lub więcej)
-     * Ekstrapolacja z danych 32-128 bitów jest zbyt daleka
-     * Algorytmy dla dużych kluczy używają zupełnie innych metod
-
-5. WNIOSEK:
-   Prognozy oparte na danych z małych kluczy (32-128 bitów) NIE SĄ 
-   wiarygodne dla dużych kluczy (512+ bitów), ponieważ:
-   - Skalowanie złożoności zmienia się dla większych liczb
-   - Używane są inne algorytmy (GNFS zamiast prostych metod)
-   - Czynniki sprzętowe i optymalizacje mają większy wpływ
-   
-   Ekstrapolacja pokazuje jedynie TREND, nie rzeczywiste czasy!
-    """)
 
 
 # ============================================================================
