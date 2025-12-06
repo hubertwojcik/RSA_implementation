@@ -38,8 +38,7 @@ class Application:
         
         # Inicjalizuj obiekt RSA
         alphabet = get_alphabet(alphabet_choice)
-        self.rsa_crypto = RSACrypto(alphabet=alphabet)
-        print(f"\nUżywany alfabet: {alphabet_choice} ({len(alphabet)} znaków)")
+        self.rsa_crypto = RSACrypto(alphabet=alphabet)        
         
         # Sprawdź, czy plik istnieje
         message_path = Path(message_file)
@@ -49,18 +48,11 @@ class Application:
         
         # Wczytaj wiadomość
         original_message = self.rsa_crypto.read_message(str(message_path))
-        print(f"Wczytano wiadomość: {len(original_message)} znaków")
-        if len(original_message) > 100:
-            print(f"  (pierwsze 100 znaków: {original_message[:100]}...)")
-        else:
-            print(f"  (treść: {original_message})")
         
         # Podziel na bloki
-        blocks = self.rsa_crypto.split_into_blocks(original_message, block_size=10)
-        print(f"Podzielono na {len(blocks)} bloków po 10 znaków")
+        blocks = self.rsa_crypto.split_into_blocks(original_message, block_size=10)        
         
-        # Wygeneruj klucz
-        print(f"\nGenerowanie klucza RSA ({key_length} bitów)...")
+        # Wygeneruj klucz        
         key = RSACrypto.generate_keypair(bit_length=key_length)
         print(f"✓ Wygenerowano klucz:")
         print(f"  n = {key.n} ({key.n.bit_length()} bitów)")
@@ -68,8 +60,7 @@ class Application:
         print(f"  p = {key.p}")
         print(f"  q = {key.q}")
         
-        # Szyfruj
-        print("\nSzyfrowanie wiadomości...")
+        # Szyfruj        
         try:
             cipher_blocks = self.rsa_crypto.encrypt_message_blocks(blocks, key)
             print(f"✓ Zaszyfrowano {len(cipher_blocks)} bloków")
@@ -79,7 +70,6 @@ class Application:
             return False
         
         # Deszyfruj
-        print("Deszyfrowanie wiadomości...")
         decrypted_blocks = self.rsa_crypto.decrypt_message_blocks(cipher_blocks, key, block_size=10)
         print(f"✓ Odszyfrowano {len(decrypted_blocks)} bloków")
         decrypted_message = ''.join(decrypted_blocks)

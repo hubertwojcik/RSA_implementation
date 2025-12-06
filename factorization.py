@@ -12,7 +12,7 @@ import sympy
 
 # Parametry eksperymentu
 BIT_LENGTHS = [32, 40, 48, 56, 64, 72, 80, 88, 96, 128]
-SAMPLES_PER_SIZE = 1
+SAMPLES_PER_SIZE = 5
 
 
 @dataclass

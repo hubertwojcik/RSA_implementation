@@ -11,11 +11,6 @@ from pathlib import Path
 import sympy
 from sympy import mod_inverse
 
-
-# ============================================================================
-# ALFABETY
-# ============================================================================
-
 ALPHABET_26 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 ALPHABET_64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 ALPHABET_ASCII = ''.join(chr(i) for i in range(256))
